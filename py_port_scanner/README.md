@@ -152,35 +152,5 @@ Project này giúp bạn luyện:
 
 ---
 
-## ⚠️ Disclaimer
-
-Tool này chỉ dùng cho:
-
-* Học tập
-* Lab cá nhân
-* Pentest có sự cho phép
-
-❗ Không sử dụng để scan hệ thống khi chưa được phép.
-
----
-
-## 📈 Future Improvements
-
-* [ ] UDP scanning
-* [ ] Full OS fingerprinting (giống Nmap)
-* [ ] Export JSON / CSV
-* [ ] CIDR / subnet scanning
-* [ ] GUI interface
-
----
-
-## 👨‍💻 Author
-
-**Quan**
-GitHub: https://github.com/quan20122006-stack
-
----
-
-## ⭐ Support
-
-Nếu thấy project hữu ích, hãy ⭐ repo để ủng hộ!
+Export chat history : 
+https://gemini.google.com/share/762ccbdb0c6b

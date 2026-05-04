@@ -1,0 +1,112 @@
+# 📄 Architecture Document – PyPortScanner
+
+## 1. 🧩 Problem Statement
+
+Trong quá trình học Network Security và Pentesting, việc hiểu cách các công cụ như Nmap hoạt động là rất quan trọng. Tuy nhiên, các tool chuyên nghiệp thường quá phức tạp đối với người mới.
+
+**Vấn đề đặt ra:**
+
+* Làm sao xây dựng một port scanner đơn giản nhưng đủ mạnh để:
+
+  * Hiểu cơ chế TCP scanning
+  * Nhận diện service (banner grabbing)
+  * Suy luận hệ điều hành cơ bản
+* Đồng thời có thể tùy chỉnh (threads, timeout, stealth) để mô phỏng các kỹ thuật thực tế
+
+---
+
+## 2. ⚙️ Technology Choices
+
+### 🔹 Python
+
+* Dễ viết, nhanh phát triển
+* Thư viện mạng (socket) mạnh, built-in
+* Phù hợp cho tool prototyping trong security
+
+### 🔹 Socket Programming
+
+* Cho phép kiểm soát trực tiếp TCP connection
+* Hiểu rõ bản chất của port scanning (connect → response)
+
+### 🔹 Multithreading
+
+* Tăng tốc độ scan đáng kể
+* Phù hợp với I/O-bound task (network requests)
+
+### 🔹 CLI-based Design
+
+* Nhẹ, dễ dùng
+* Phù hợp automation & scripting (pentest workflow)
+
+---
+
+## 3. 🔄 System Workflow
+
+### 📌 High-level Flow
+
+```text
+User Input (CLI)
+      │
+      ▼
+Argument Parser (cli.py)
+      │
+      ▼
+Scan Configuration
+(target, ports, threads, timeout, mode)
+      │
+      ▼
+Thread Pool Execution
+      │
+      ▼
+[For each port]
+    ├── Create socket
+    ├── Attempt TCP connect
+    ├── If OPEN:
+    │     ├── Banner Grabbing
+    │     └── Service Detection
+    │
+    └── Store result
+      │
+      ▼
+Result Aggregation
+      │
+      ▼
+OS Inference (basic heuristics)
+      │
+      ▼
+Output to Terminal
+```
+
+---
+
+## 4. 🧠 Design Considerations
+
+* **Performance vs Stealth**
+
+  * Nhiều thread → scan nhanh nhưng dễ bị detect
+  * Ít thread + delay → stealth hơn
+
+* **Extensibility**
+
+  * Tách `cli.py` và `scanner.py` giúp dễ mở rộng
+  * Có thể thêm:
+
+    * UDP scan
+    * OS fingerprinting nâng cao
+    * Export kết quả
+
+* **Simplicity First**
+
+  * Không dùng lib nặng (như scapy) để giữ control low-level
+  * Tập trung vào hiểu bản chất thay vì “black-box”
+
+---
+
+## 5. 🚀 Future Architecture Improvements
+
+* Worker queue thay cho threading đơn giản
+* Plugin system cho service detection
+* Async scanning (asyncio) để scale tốt hơn
+* Distributed scanning (scan nhiều host song song)
+
+---

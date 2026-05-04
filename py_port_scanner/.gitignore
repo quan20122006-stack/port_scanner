@@ -1,0 +1,12 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Môi trường ảo (Virtual environments)
+venv/
+env/
+.venv/
+
+# File biến môi trường (Bảo mật)
+.env

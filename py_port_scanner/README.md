@@ -1,50 +1,186 @@
 # 🚀 PyPortScanner - Advanced Python Port Scanner
 
-**PyPortScanner** là một công cụ quét cổng mạng (Port Scanner) đa luồng được phát triển bằng Python. Công cụ hỗ trợ thăm dò dịch vụ (Service Probing), nhận diện phiên bản (Banner Grabbing) và suy luận hệ điều hành (Basic OS Inference).
+**PyPortScanner** là một công cụ quét cổng mạng (Port Scanner) đa luồng được xây dựng bằng Python, phục vụ cho mục đích học tập về Network Security và Pentesting.
+
+Tool hỗ trợ:
+
+* 🔍 Service Probing
+* 🏷 Banner Grabbing
+* 🧠 Basic OS Inference
 
 ---
 
-## 📂 Cấu trúc thư mục dự án
+## ✨ Features
 
-Để chạy dự án theo cấu trúc chuẩn, bạn cần tạo các file với nội dung tương ứng ở phần "Mã Nguồn" bên dưới theo đúng cấu trúc sau:
-```text
+* ⚡ Multithreaded scanning (tăng tốc độ quét)
+* 🎯 Quét port linh hoạt (custom range / default ports)
+* 🔍 Service detection & banner grabbing
+* 🧠 Basic OS inference (dựa trên phản hồi dịch vụ)
+* 🛡 Stealth mode (giảm khả năng bị phát hiện)
+* ⏱ Configurable timeout & worker threads
+
+---
+
+## 📂 Project Structure
+
+```bash
 py-port-scanner/
 │
-├── .env                    # Biến môi trường
-├── .gitignore              # Bỏ qua file rác khi dùng Git
-├── requirements.txt        # Danh sách thư viện
-├── run.py                  # File khởi chạy chính
-└── src/                    # Thư mục mã nguồn
-    ├── __init__.py         # File rỗng đánh dấu package
-    ├── cli.py              # Xử lý tham số dòng lệnh
-    └── scanner.py          # Logic quét port cốt lõi
+├── .env
+├── .gitignore
+├── requirements.txt
+├── run.py
+└── src/
+    ├── __init__.py
+    ├── cli.py
+    └── scanner.py
+```
 
+---
 
-💻 Hướng dẫn Cài đặt & Sử dụng
+## 🚀 Installation
 
- 1. CÀI ĐẶT MÔI TRƯỜNG 
-Clone project
-git clone <your-repo-url>
-cd PY_PORT_SCANNER
+Clone project:
 
- # Tạo môi trường ảo (Khuyến nghị)
+```bash
+git clone https://github.com/quan20122006-stack/port_scanner.git
+cd py-port-scanner
+```
+
+Tạo virtual environment (khuyến nghị):
+
+```bash
 python -m venv venv
+```
 
-# Kích hoạt môi trường ảo
-# Trên Windows: venv\Scripts\activate
-# Trên Linux/macOS: source venv/bin/activate
+Kích hoạt:
 
-# Cài đặt thư viện
+```bash
+# Windows
+venv\Scripts\activate
+
+# Linux / macOS
+source venv/bin/activate
+```
+
+Cài dependencies:
+
+```bash
 pip install -r requirements.txt
+```
 
-2.Các lệnh quét tiêu biểu:
-python run.py -h Dùng để xem các option chạy của tool 
+---
 
-# Quét cơ bản IP nội bộ (Dùng danh bạ mặc định, chạy cực nhanh)
+## ▶️ Usage
+
+Hiển thị help:
+
+```bash
+python run.py -h
+```
+
+### 🔹 Quét cơ bản (nhanh)
+
+```bash
 python run.py -t 192.168.1.1
+```
 
-# Quét sâu (Service Probing & OS Inference) - Tốn thời gian hơn
+---
+
+### 🔹 Quét nâng cao (Service + OS detection)
+
+```bash
 python run.py -t 127.0.0.1 -P
+```
 
-# Quét tàng hình (Stealth) - Né Firewall bằng cách chạy 1 luồng, delay 2s
+---
+
+### 🔹 Stealth Scan (né firewall / IDS cơ bản)
+
+```bash
 python run.py -t 10.10.10.5 -w 1 --timeout 2.0
+```
+
+---
+
+## 📌 Example Output
+
+```bash
+[+] Target: 192.168.1.1
+[+] Port 22 (SSH) OPEN
+[+] Port 80 (HTTP) OPEN
+[+] Banner: Apache/2.4.41 (Ubuntu)
+
+[+] OS Guess: Linux
+
+Scan completed.
+```
+
+---
+
+## 🧠 How It Works
+
+Tool hoạt động theo các bước:
+
+1. Tạo TCP socket
+2. Kết nối tới từng port trên target
+3. Nếu connect thành công → port OPEN
+4. Gửi payload để lấy banner (service probing)
+5. Phân tích response để đoán OS
+6. Sử dụng multithreading để tăng tốc
+
+---
+
+## 🛠 Technologies Used
+
+* **Python 3**
+* **Socket Programming**
+* **Threading**
+* **Networking Fundamentals**
+
+---
+
+## 🎯 Learning Objectives
+
+Project này giúp bạn luyện:
+
+* Python networking
+* Port scanning techniques
+* Multithreading
+* Service enumeration
+* Basic reconnaissance mindset
+
+---
+
+## ⚠️ Disclaimer
+
+Tool này chỉ dùng cho:
+
+* Học tập
+* Lab cá nhân
+* Pentest có sự cho phép
+
+❗ Không sử dụng để scan hệ thống khi chưa được phép.
+
+---
+
+## 📈 Future Improvements
+
+* [ ] UDP scanning
+* [ ] Full OS fingerprinting (giống Nmap)
+* [ ] Export JSON / CSV
+* [ ] CIDR / subnet scanning
+* [ ] GUI interface
+
+---
+
+## 👨‍💻 Author
+
+**Quan**
+GitHub: https://github.com/quan20122006-stack
+
+---
+
+## ⭐ Support
+
+Nếu thấy project hữu ích, hãy ⭐ repo để ủng hộ!
